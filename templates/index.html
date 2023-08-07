@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Hand Gesture Recognition App</title>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Hand Gesture Recognition</h1>
+        <ul>
+            <li><button id="recordButton">Record Video</button></li>
+            <li><label for="uploadImage">Upload Image</label><input type="file" id="uploadImage" accept="image/*"></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="video-container">
+            <img id="videoStream" src="{{ url_for('video_feed') }}" alt="Hand Gesture Recognition">
+        </div>
+    </div>
+    <script>
+        const videoStream = document.getElementById('videoStream');
+        const recordButton = document.getElementById('recordButton');
+        const uploadImageInput = document.getElementById('uploadImage');
+
+        videoStream.onload = () => {
+            recordButton.addEventListener('click', () => {
+                // Your JavaScript code to toggle video recording
+            });
+
+            uploadImageInput.addEventListener('change', () => {
+                const file = uploadImageInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        videoStream.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        };
+    </script>
+</body>
+</html>
+
